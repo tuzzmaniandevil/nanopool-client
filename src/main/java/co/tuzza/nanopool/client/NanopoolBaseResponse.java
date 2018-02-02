@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package co.tuzza.nanopool.client.dto;
+package co.tuzza.nanopool.client;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,6 +27,9 @@ public class NanopoolBaseResponse<T> {
     private final boolean status;
     private final String error;
     private final T data;
+
+    private Integer rateLimit;
+    private Integer rateLimitRemaining;
 
     @JsonCreator
     public NanopoolBaseResponse(@JsonProperty("status") boolean status, @JsonProperty("error") String error, @JsonProperty("data") T data) {
@@ -47,12 +50,30 @@ public class NanopoolBaseResponse<T> {
         return data;
     }
 
+    public Integer getRateLimit() {
+        return rateLimit;
+    }
+
+    protected void setRateLimit(Integer rateLimit) {
+        this.rateLimit = rateLimit;
+    }
+
+    public Integer getRateLimitRemaining() {
+        return rateLimitRemaining;
+    }
+
+    protected void setRateLimitRemaining(Integer rateLimitRemaining) {
+        this.rateLimitRemaining = rateLimitRemaining;
+    }
+
     @Override
     public String toString() {
         return "NanopoolBaseResponse{"
                 + "status=" + status
-                + ", data=" + data
                 + ", error='" + error + "'"
+                + ", rateLimit=" + rateLimit
+                + ", rateLimitRemaining=" + rateLimitRemaining
+                + ", data=" + data
                 + "}";
     }
 

@@ -16,7 +16,6 @@
 package co.tuzza.nanopool.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
@@ -24,7 +23,6 @@ import java.math.BigDecimal;
  *
  * @author dylan
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Earning {
 
     private final BigDecimal coins;
