@@ -6,10 +6,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     
-    <organization>
-        <name>Tuzza.co</name>
-    </organization>
-    
     <developers>
         <developer>
             <id>tuzzmaniandevil</id>
@@ -31,6 +27,15 @@
         <developerConnection>scm:git:git://github.com/tuzzmaniandevil/nanopool-client.git</developerConnection>
     </scm>
     
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+    
     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -44,15 +49,6 @@
             <type>jar</type>
         </dependency>
     </dependencies>
-    
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-    </licenses>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
