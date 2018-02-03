@@ -15,6 +15,7 @@
  */
 package co.tuzza.nanopool.client.dto;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
@@ -25,10 +26,15 @@ import java.math.BigDecimal;
  */
 public class Prices {
 
+    @JsonAlias({"price_usd", "dollars"})
     private final BigDecimal usd;
+    @JsonAlias({"price_eur", "euros"})
     private final BigDecimal eur;
+    @JsonAlias({"price_rur", "rubles"})
     private final BigDecimal rur;
+    @JsonAlias({"price_cny", "yuan"})
     private final BigDecimal cny;
+    @JsonAlias({"price_btc", "bitcoins"})
     private final BigDecimal btc;
 
     @JsonCreator

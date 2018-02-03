@@ -15,21 +15,23 @@
  */
 package co.tuzza.nanopool.client;
 
-import co.tuzza.nanopool.client.dto.ChartDataList;
+import co.tuzza.nanopool.client.dto.ChartData;
 import co.tuzza.nanopool.client.dto.Earnings;
 import co.tuzza.nanopool.client.dto.Periods;
 import co.tuzza.nanopool.client.dto.Pool;
 import co.tuzza.nanopool.client.dto.Prices;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import javax.net.ssl.HttpsURLConnection;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -57,7 +59,7 @@ public class NanopoolClient {
 
         String url = parseUrl(NanopoolUrls.MINER_ACCOUNT_BALANCE, pool, address);
 
-        return doGET(url);
+        return doGET(url, BigDecimal.class);
     }
 
     /**
@@ -83,7 +85,7 @@ public class NanopoolClient {
 
         String url = parseUrl(NanopoolUrls.MINER_AVERAGE_HASHRATE_LIMITED, params);
 
-        return doGET(url);
+        return doGET(url, BigDecimal.class);
     }
 
     /**
@@ -105,7 +107,7 @@ public class NanopoolClient {
 
         String url = parseUrl(NanopoolUrls.MINER_AVERAGE_HASHRATE, pool, address);
 
-        return doGET(url);
+        return doGET(url, Periods.class);
     }
 
     /**
@@ -117,7 +119,7 @@ public class NanopoolClient {
      * @throws IOException
      * @throws IllegalArgumentException
      */
-    public NanopoolBaseResponse<ChartDataList> getChartData(Pool pool, String address) throws IOException, IllegalArgumentException {
+    public NanopoolBaseResponse<List<ChartData>> getChartData(Pool pool, String address) throws IOException, IllegalArgumentException {
         if (pool == null) {
             throw new IllegalArgumentException("pool is not allowed to be null");
         }
@@ -127,7 +129,34 @@ public class NanopoolClient {
 
         String url = parseUrl(NanopoolUrls.MINER_CHART_DATA, pool, address);
 
-        return doGET(url);
+        TypeFactory f = TypeFactory.defaultInstance();
+
+        JavaType inner = f.constructParametricType(List.class, ChartData.class);
+        JavaType type = f.constructParametricType(NanopoolBaseResponse.class, inner);
+
+        return doGET(url, type);
+    }
+
+    /**
+     * Returns status 'true' if account exist and 'false' otherwise
+     *
+     * @param pool
+     * @param address
+     * @return
+     * @throws IOException
+     * @throws IllegalArgumentException
+     */
+    public NanopoolBaseResponse<String> checkMinerAccount(Pool pool, String address) throws IOException, IllegalArgumentException {
+        if (pool == null) {
+            throw new IllegalArgumentException("pool is not allowed to be null");
+        }
+        if (address == null) {
+            throw new IllegalArgumentException("address is not allowed to be null");
+        }
+
+        String url = parseUrl(NanopoolUrls.MINER_CHECK_ACCOUNT, pool, address);
+
+        return doGET(url, String.class);
     }
 
     /**
@@ -144,7 +173,7 @@ public class NanopoolClient {
 
         String url = parseUrl(NanopoolUrls.OTHER_PRICES, pool);
 
-        return doGET(url);
+        return doGET(url, Prices.class);
     }
 
     /**
@@ -169,22 +198,30 @@ public class NanopoolClient {
 
         String url = parseUrl(NanopoolUrls.OTHER_CALCULATOR, params);
 
-        return doGET(url);
+        return doGET(url, Earnings.class);
     }
 
-    private <T> NanopoolBaseResponse<T> doGET(String s) throws IOException {
+    private <T> NanopoolBaseResponse<T> doGET(String s, Class<T> cls) throws IOException {
+
+        TypeFactory f = TypeFactory.defaultInstance();
+
+        JavaType type = f.constructParametricType(NanopoolBaseResponse.class, cls);
+
+        return doGET(s, type);
+    }
+
+    private <T> NanopoolBaseResponse<T> doGET(String s, JavaType javaType) throws IOException {
         URL url = new URL(s);
-        HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.addRequestProperty("User-Agent", "Nanopool-java-sdk/1.0.0");
         try {
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             ObjectMapper m = new ObjectMapper();
-            
+
             String rateLimit_Limit = urlConnection.getHeaderField("X-RateLimit-Limit");
             String rateLimit_Remaining = urlConnection.getHeaderField("X-RateLimit-Remaining");
 
-            NanopoolBaseResponse<T> resp = m.readValue(in, new TypeReference<NanopoolBaseResponse<T>>() {
-            });
+            NanopoolBaseResponse<T> resp = m.readValue(in, javaType);
 
             if (StringUtils.isNotBlank(rateLimit_Limit)) {
                 try {

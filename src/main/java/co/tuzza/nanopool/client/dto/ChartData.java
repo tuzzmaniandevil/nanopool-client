@@ -17,6 +17,7 @@ package co.tuzza.nanopool.client.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -26,12 +27,14 @@ import java.util.Date;
  */
 public class ChartData {
 
+    @JsonDeserialize(converter = DateFromEpochConverter.class)
     private final Date date;
     private final Long shares;
     private final BigDecimal hashrate;
 
     @JsonCreator
-    public ChartData(@JsonProperty("date") Date date,
+    public ChartData(
+            @JsonProperty("date") Date date,
             @JsonProperty("shares") Long shares,
             @JsonProperty("hashrate") BigDecimal hashrate) {
         this.date = date;

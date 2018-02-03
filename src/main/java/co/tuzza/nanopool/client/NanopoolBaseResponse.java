@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  *
  * @author dylan
+ * @param <T>
  */
 public class NanopoolBaseResponse<T> {
 
@@ -68,7 +69,8 @@ public class NanopoolBaseResponse<T> {
 
     @Override
     public String toString() {
-        return "NanopoolBaseResponse{"
+        String simpleName = getClass().getSimpleName();
+        return simpleName + "{"
                 + "status=" + status
                 + ", error='" + error + "'"
                 + ", rateLimit=" + rateLimit

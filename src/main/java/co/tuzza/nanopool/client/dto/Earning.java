@@ -33,12 +33,12 @@ public class Earning {
     private final BigDecimal rubles;
 
     @JsonCreator
-    public Earning(@JsonProperty BigDecimal coins,
-            @JsonProperty BigDecimal bitcoins,
-            @JsonProperty BigDecimal dollars,
-            @JsonProperty BigDecimal yuan,
-            @JsonProperty BigDecimal euros,
-            @JsonProperty BigDecimal rubles) {
+    public Earning(@JsonProperty("coins") BigDecimal coins,
+            @JsonProperty("bitcoins") BigDecimal bitcoins,
+            @JsonProperty("dollars") BigDecimal dollars,
+            @JsonProperty("yuan") BigDecimal yuan,
+            @JsonProperty("euros") BigDecimal euros,
+            @JsonProperty("rubles") BigDecimal rubles) {
         this.coins = coins;
         this.bitcoins = bitcoins;
         this.dollars = dollars;
