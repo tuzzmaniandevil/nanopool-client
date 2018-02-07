@@ -15,6 +15,7 @@
  */
 package co.tuzza.nanopool.client;
 
+import co.tuzza.nanopool.client.schema.BaseNanopoolSchema;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author dylan
  * @param <T>
  */
-public class NanopoolBaseResponse<T> {
+public class NanopoolBaseResponse<T> extends BaseNanopoolSchema {
 
     private final boolean status;
     private final String error;
@@ -65,18 +66,6 @@ public class NanopoolBaseResponse<T> {
 
     protected void setRateLimitRemaining(Integer rateLimitRemaining) {
         this.rateLimitRemaining = rateLimitRemaining;
-    }
-
-    @Override
-    public String toString() {
-        String simpleName = getClass().getSimpleName();
-        return simpleName + "{"
-                + "status=" + status
-                + ", error='" + error + "'"
-                + ", rateLimit=" + rateLimit
-                + ", rateLimitRemaining=" + rateLimitRemaining
-                + ", data=" + data
-                + "}";
     }
 
 }

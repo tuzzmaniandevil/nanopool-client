@@ -25,7 +25,7 @@ import java.util.Date;
  *
  * @author dylan
  */
-public class ChartData {
+public class ChartData extends BaseNanopoolSchema {
 
     @JsonDeserialize(converter = DateFromEpochConverter.class)
     private final Date date;
@@ -62,15 +62,6 @@ public class ChartData {
      */
     public BigDecimal getHashrate() {
         return hashrate;
-    }
-
-    @Override
-    public String toString() {
-        return "ChartData{"
-                + "date=" + date
-                + ", shares=" + shares
-                + ", hashrate=" + hashrate
-                + "}";
     }
 
 }

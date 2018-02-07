@@ -24,7 +24,7 @@ import java.math.BigDecimal;
  *
  * @author dylan
  */
-public class Prices {
+public class Prices extends BaseNanopoolSchema {
 
     @JsonAlias({"price_usd", "dollars"})
     private final BigDecimal usd;
@@ -68,17 +68,6 @@ public class Prices {
 
     public BigDecimal getBtc() {
         return btc;
-    }
-
-    @Override
-    public String toString() {
-        return "Prices{\n"
-                + "usd=" + usd
-                + ", eur=" + eur
-                + ", rur=" + rur
-                + ", cny=" + cny
-                + ", btc=" + btc
-                + "}";
     }
 
 }

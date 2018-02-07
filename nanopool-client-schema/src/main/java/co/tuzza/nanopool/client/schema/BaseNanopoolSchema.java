@@ -15,14 +15,21 @@
  */
 package co.tuzza.nanopool.client.schema;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  *
  * @author dylan
  */
-@JsonDeserialize(contentAs = ChartData.class)
-public class ChartDataList extends ArrayList<ChartData> {
+public abstract class BaseNanopoolSchema implements Serializable {
 
+    /**
+     * Returns this object in a JSON formatted string
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return SchemaUtils.writeToString(this);
+    }
 }

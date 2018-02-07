@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author dylan
  */
-public class Earnings {
+public class Earnings extends BaseNanopoolSchema {
 
     private final Earning minute;
     private final Earning hour;
@@ -61,17 +61,6 @@ public class Earnings {
 
     public Earning getMonth() {
         return month;
-    }
-
-    @Override
-    public String toString() {
-        return "Earnings{"
-                + "minute=" + minute
-                + ", hour=" + hour
-                + ", day=" + day
-                + ", week=" + week
-                + ", month=" + month
-                + "}";
     }
 
 }

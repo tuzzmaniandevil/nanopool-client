@@ -23,7 +23,7 @@ import java.math.BigDecimal;
  *
  * @author dylan
  */
-public class Earning {
+public class Earning extends BaseNanopoolSchema {
 
     private final BigDecimal coins;
     private final BigDecimal bitcoins;
@@ -69,18 +69,6 @@ public class Earning {
 
     public BigDecimal getRubles() {
         return rubles;
-    }
-
-    @Override
-    public String toString() {
-        return "Earning{"
-                + "coins=" + coins
-                + ", bitcoins=" + bitcoins
-                + ", dollars=" + dollars
-                + ", yuan=" + yuan
-                + ", euros=" + euros
-                + ", rubles=" + rubles
-                + "}";
     }
 
 }

@@ -1,5 +1,5 @@
-/* 
- * Copyright 2018 Tuzza.co.
+/*
+ * Copyright 2018 dylan.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@ package co.tuzza.nanopool.client.schema;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  *
  * @author dylan
  */
-public class Periods extends BaseNanopoolSchema {
+public class ExtWorker extends Worker {
 
     private final BigDecimal h1;
     private final BigDecimal h3;
@@ -32,12 +33,18 @@ public class Periods extends BaseNanopoolSchema {
     private final BigDecimal h24;
 
     @JsonCreator
-    public Periods(
+    public ExtWorker(
+            @JsonProperty("uid") long uid,
+            @JsonProperty("id") String id,
+            @JsonProperty("hashrate") BigDecimal hashrate,
+            @JsonProperty("lastshare") Date lastShare,
+            @JsonProperty("rating") BigDecimal rating,
             @JsonProperty("h1") BigDecimal h1,
             @JsonProperty("h3") BigDecimal h3,
             @JsonProperty("h6") BigDecimal h6,
             @JsonProperty("h12") BigDecimal h12,
             @JsonProperty("h24") BigDecimal h24) {
+        super(uid, id, hashrate, lastShare, rating);
         this.h1 = h1;
         this.h3 = h3;
         this.h6 = h6;

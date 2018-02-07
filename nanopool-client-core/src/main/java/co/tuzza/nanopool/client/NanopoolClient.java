@@ -20,6 +20,7 @@ import co.tuzza.nanopool.client.schema.Earnings;
 import co.tuzza.nanopool.client.schema.Periods;
 import co.tuzza.nanopool.client.schema.Pool;
 import co.tuzza.nanopool.client.schema.Prices;
+import co.tuzza.nanopool.client.schema.UserInfo;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -157,6 +158,49 @@ public class NanopoolClient {
         String url = parseUrl(NanopoolUrls.MINER_CHECK_ACCOUNT, pool, address);
 
         return doGET(url, String.class);
+    }
+
+    /**
+     * Returns account current hashrate [H/s]
+     *
+     * @param pool
+     * @param address
+     * @return
+     * @throws IOException
+     * @throws IllegalArgumentException
+     */
+    public NanopoolBaseResponse<BigDecimal> getCurrentHashrate(Pool pool, String address) throws IOException, IllegalArgumentException {
+        if (pool == null) {
+            throw new IllegalArgumentException("pool is not allowed to be null");
+        }
+        if (address == null) {
+            throw new IllegalArgumentException("address is not allowed to be null");
+        }
+
+        String url = parseUrl(NanopoolUrls.MINER_CURRENT_HASHRATE, pool, address);
+
+        return doGET(url, BigDecimal.class);
+    }
+
+    /**
+     *
+     * @param pool
+     * @param address
+     * @return
+     * @throws IOException
+     * @throws IllegalArgumentException
+     */
+    public NanopoolBaseResponse<UserInfo> getUserInfo(Pool pool, String address) throws IOException, IllegalArgumentException {
+        if (pool == null) {
+            throw new IllegalArgumentException("pool is not allowed to be null");
+        }
+        if (address == null) {
+            throw new IllegalArgumentException("address is not allowed to be null");
+        }
+
+        String url = parseUrl(NanopoolUrls.MINER_GENERAL_INFO, pool, address);
+
+        return doGET(url, UserInfo.class);
     }
 
     /**
