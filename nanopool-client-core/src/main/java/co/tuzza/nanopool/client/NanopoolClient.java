@@ -15,11 +15,11 @@
  */
 package co.tuzza.nanopool.client;
 
-import co.tuzza.nanopool.client.dto.ChartData;
-import co.tuzza.nanopool.client.dto.Earnings;
-import co.tuzza.nanopool.client.dto.Periods;
-import co.tuzza.nanopool.client.dto.Pool;
-import co.tuzza.nanopool.client.dto.Prices;
+import co.tuzza.nanopool.client.schema.ChartData;
+import co.tuzza.nanopool.client.schema.Earnings;
+import co.tuzza.nanopool.client.schema.Periods;
+import co.tuzza.nanopool.client.schema.Pool;
+import co.tuzza.nanopool.client.schema.Prices;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;

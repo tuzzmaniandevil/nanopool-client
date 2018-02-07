@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2018 Tuzza.co.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package co.tuzza.nanopool.client.dto;
+package co.tuzza.nanopool.client.schema;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.util.ArrayList;
 
 /**
  *
  * @author dylan
  */
-public class Worker {
+@JsonDeserialize(contentAs = ChartData.class)
+public class ChartDataList extends ArrayList<ChartData> {
 
 }
